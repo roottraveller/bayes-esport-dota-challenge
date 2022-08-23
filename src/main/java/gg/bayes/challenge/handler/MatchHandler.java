@@ -5,7 +5,7 @@ import gg.bayes.challenge.repository.h2.H2HeroHitRepository;
 import gg.bayes.challenge.repository.h2.H2HeroItemRepository;
 import gg.bayes.challenge.repository.h2.H2HeroKillRepository;
 import gg.bayes.challenge.repository.h2.H2HeroSpellRepository;
-import gg.bayes.challenge.repository.model.Herohitentity;
+import gg.bayes.challenge.repository.model.HeroHitEntity;
 import gg.bayes.challenge.repository.model.HeroItemEntity;
 import gg.bayes.challenge.repository.model.HeroKillEntity;
 import gg.bayes.challenge.repository.model.HeroSpellEntity;
@@ -35,12 +35,12 @@ public class MatchHandler {
     public Long ingestMatch(String str) {
         if (str.length() == 0) {
             log.error("str length is zero. aborting here");
-            return 1L;
+            return 0L;
         }
         String[] split = str.split(Constants.SEPARATOR_SPACE);
         if (split.length <= 3 || split[1].equalsIgnoreCase("game")) {
             log.error("str length is less than 3 or game state updated. skipping");
-            return 1L;
+            return 0L;
         }
 
 //        for(String s : split) {
@@ -65,10 +65,10 @@ public class MatchHandler {
         } else {
             //TODO handle later or throw exception
             log.error("Invalid input for current use case, skip");
-            return 1L;
+            return 0L;
         }
 
-        return 0L;
+        return 1L;
     }
 
 
@@ -120,7 +120,7 @@ public class MatchHandler {
             return;
         }
         if (action.equalsIgnoreCase("hits")) {
-            h2HeroHitRepository.save(Herohitentity.builder()
+            h2HeroHitRepository.save(HeroHitEntity.builder()
                     .matchId(matchId)
                     .byHero(heroName)
                     .hitWith(hitWith)

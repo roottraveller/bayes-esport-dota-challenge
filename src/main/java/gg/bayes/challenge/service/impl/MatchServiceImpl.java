@@ -1,5 +1,6 @@
 package gg.bayes.challenge.service.impl;
 
+import gg.bayes.challenge.constants.Constants;
 import gg.bayes.challenge.handler.MatchHandler;
 import gg.bayes.challenge.rest.model.HeroDamage;
 import gg.bayes.challenge.rest.model.HeroItems;
@@ -24,7 +25,12 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public long ingestMatch(String payload) {
-       return matchHandler.ingestMatch(payload);
+        String[] split = payload.split(Constants.SEPARATOR_NEWLINE);
+        long lineCount = 0;
+        for (String str : split) {
+            lineCount += matchHandler.ingestMatch(str);
+        }
+        return lineCount;
     }
 
     @Override

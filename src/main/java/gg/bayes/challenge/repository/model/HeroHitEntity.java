@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Herohitentity {
+public class HeroHitEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
